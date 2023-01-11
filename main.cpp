@@ -15,30 +15,40 @@ int main(int argc, char *argv[])
 	
 
 
-    struct node *tree=NULL;
-    struct node *a=NULL;	
-	tree=newNode(5);
+    struct node *tree=newNode(8);
+    struct node *a=newNode(4);	
+    struct node *b=newNode(2);
+    struct node *c=newNode(2);
+    struct node *d=newNode(3);
+    struct node *g=newNode(0);
+	
 	
 
 //create the branches of the  nodes
 	 //s->a
-tree->left = tree;
-a = newNode(5);
-tree->left->left = a;
+    tree->left = a;
+  //s->g
+    tree->right = g;
+    
+    	 //s->a->c
+    tree->left->left = g;
+    	 //s->a->b
+    tree->left->right = b;
 
-a = newNode(2);
-tree->right = a;
+   	 //s->a->c->g
+    tree->left->left->left = c;
+     	 //s->a->c->d
+    tree->left->left->right = d;
+   //s->a->b->d
+    tree->left->right->right = d;
+      
+      	 //s->a->c->d->g
+    tree->left->left->right->right = g;
+   //s->a->b->d
+    tree->left->right->right->right = g;
 
-tree->right->left = a;
-a = newNode(1);
-tree->right->right = a;
 
-a = newNode(2);
-tree->right->left->left = a;
-a = newNode(5);
-tree->right->right->right = a;
-	 
-   displayAllTree(tree, "tree");
+   //displayAllTree(tree, "tree");
 
 	 algorithim(tree);
 
@@ -58,28 +68,30 @@ void algorithim(struct node *temp){
     cout << "End of tree \n";
     return;
   }
-
+//ensuer you are not pointing to a null node
   if (temp->left == NULL) {
     a = temp->right->data;
-  } else if (temp->right == NULL) {
-    a = temp->left->data;
   } else {
-    a = temp->data;
-  }
+    a = temp->left->data;
+  } 
 
   if (temp->right == NULL) {
     b = a;
   } else {
     b = temp->right->data;
   }
-
+//compare heuristic values
   if (a < b) {
-    cout << "L "<<a<<"\n";
+    cout << "L -> \n";
+    if(a == 0)
+    return;
     if (temp->left != NULL) {
       algorithim(temp->left);
     }
   } else {
-    cout << "R "<<b<<"\n";
+    cout << "R -> \n";
+     if(b == 0)
+    return;
     if (temp->right != NULL) {
       algorithim(temp->right);
     }
